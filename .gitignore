@@ -1,0 +1,20 @@
+# Generated code
+gitinfo.go
+
+# Editors
+.vscode
+.idea
+
+# Binaries
+core-skaarhoj-template
+main
+
+# Configs
+core-skaarhoj-template.toml
+core-skaarhoj-template.default.toml
+core-skaarhoj-template.schema.json
+
+*.ipk
+*.ipks
+
+ib_embed_fs.go

@@ -1,0 +1,10 @@
+[[Devices]]
+  Active = true
+  Name = ""
+  DeviceID = 1
+  ModelID = 0
+  Description = "Main PowerPDU 4C in Rack"
+  IP = "192.168.10.28"
+  Port = 0
+  Username = "write"
+  Password = "24A42C39352B"
