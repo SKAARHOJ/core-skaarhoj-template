@@ -16,14 +16,14 @@ var modelsFS embed.FS
 
 func main() {
 	ib.ReloadHook()
-	ib.SetImageFS(&modelsFS)
+	ib.SetImageFS(&modelsFS) // make sure we register the devicecore images here
 
 	branch := ""
 	if gitBranch != "master" && gitBranch != "main" {
 		branch = " branch: " + gitBranch
 	}
 
-	log.Infof("core-skaarhoj-template started, version %s (%s) - %s%s", gitTag, gitRevision, branch)
+	log.Infof("core-skaarhoj-template started, version %s (%s) %s", gitTag, gitRevision, branch)
 
 	// Setup core info
 	coreInfo := &pb.CoreInfo{
@@ -36,8 +36,14 @@ func main() {
 		ConnectionType: pb.ConnectionType_Network,
 	}
 
+	// get the default config structure for the cores settings and devices
+	config := defaultConfig()
+
 	// Create the manager and registry
-	manager, registry, toManager, fromManager := ib.CreateServer(coreInfo)
+	manager, registry, toManager, fromManager := ib.CreateServerWithConfig(coreInfo, &config)
+
+	// Alternatively do only create the components without a config
+	// manager, registry, toManager, fromManager := ib.CreateServer(coreInfo)
 
 	// You can start to register models here. A generic model that inherits ALL registered parameters will be created automatically.
 	registry.RegisterModel(&pb.ModelInfo{
