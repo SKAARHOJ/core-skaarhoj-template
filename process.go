@@ -13,6 +13,16 @@ import (
 	log "github.com/s00500/env_logger"
 )
 
+/*
+process.go holds the main implementation of the core, communicating with the manager over the two channels received on initializing the corelib
+
+Right in the start we register all devices that are defined by the config and start go routines for them.
+Messages from the manager are then routed to the individual devices go routines
+
+Each of the sub go routines per device handle their respective state, network connections and reconnection handling
+
+*/
+
 func processDevices(r *ib.IBeamParameterRegistry, config CoreConfig, fromManager <-chan *pb.Parameter, toManager chan<- *pb.Parameter) {
 	stateChannels := make(map[uint32]chan *pb.Parameter)
 

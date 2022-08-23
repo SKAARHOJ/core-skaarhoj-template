@@ -6,6 +6,14 @@ import (
 	b "github.com/SKAARHOJ/ibeam-corelib-go/paramhelpers"
 )
 
+/*
+
+This file provides all functions to register the parameter definitions of this core.
+You can use all means of code to generate these definitions
+It is advised to keep these definitions organised over several files instead of all in one large one
+
+*/
+
 func configureParameters(r *ib.IBeamParameterRegistry) {
 
 	/*

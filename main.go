@@ -14,6 +14,13 @@ import (
 //go:embed model_images
 var modelsFS embed.FS
 
+/*
+
+In the main file we read the config, initialize the corelib,
+register models and parameters and finally start the implementation and manager routines
+
+*/
+
 func main() {
 	ib.ReloadHook()
 	ib.SetImageFS(&modelsFS) // make sure we register the devicecore images here
