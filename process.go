@@ -37,6 +37,7 @@ func processDevices(r *ib.IBeamParameterRegistry, config CoreConfig, fromManager
 		}
 		stateChan := make(chan *pb.Parameter, 10)
 		stateChannels[deviceConfig.DeviceID] = stateChan
+
 		go handleConnection(deviceConfig, stateChan, toManager, r)
 	}
 
@@ -86,6 +87,9 @@ func handleConnection(config DeviceConfig, fromManager <-chan *pb.Parameter, toM
 				var err error
 				// TODO: Process incoming data here
 				log.Info("Processing Incoming")
+
+				toManager <- b.Param(r.PID("iris"), did, b.Int(1000))
+
 				time.Sleep(time.Second * 5)
 				if err != nil {
 					break
