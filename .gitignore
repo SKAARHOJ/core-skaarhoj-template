@@ -18,3 +18,4 @@ core-skaarhoj-template.schema.json
 *.ipks
 
 ib_embed_fs.go
+.DS_Store
