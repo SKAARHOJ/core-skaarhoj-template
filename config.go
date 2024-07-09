@@ -20,8 +20,8 @@ type CoreConfig struct {
 // DeviceConfig configuration of an individual device
 type DeviceConfig struct {
 	skconfig.BaseDeviceConfig
-	IP       string `ibValidate:"ip" ibOrder:"1"`
-	Port     uint16 `ibValidate:"port" ibOrder:"2" ibDefault:"8000"`
+	IP       string `ibDispatch:"ip" ibValidate:"ip" ibOrder:"1"`
+	Port     uint16 `ibDispatch:"port" ibValidate:"port" ibOrder:"2" ibDefault:"8000"`
 	Username string `ibOrder:"3" ibDefault:"skaarhoj"`
 	Password string `ibLabel:"Device Password" ibValidate:"password" ibDescription:"The password that is set on the device" ibOrder:"4"` // Markup for skaarOS webui
 }
