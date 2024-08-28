@@ -25,16 +25,23 @@ Each of the sub go routines per device handle their respective state, network co
 
 func processDevices(r *ib.IBeamParameterRegistry, config CoreConfig, fromManager <-chan *pb.Parameter, toManager chan<- *pb.Parameter) {
 	stateChannels := make(map[uint32]chan *pb.Parameter)
+	for _, deviceConfig := range config.Devices {
+		if !deviceConfig.Active {
+			continue
+		}
+
+		// Register all devices first to ensure they are accessible by the client (reactor)
+		_, err := r.RegisterDevice(deviceConfig.DeviceID, deviceConfig.ModelID)
+		if log.Should(err) {
+			continue
+		}
+	}
 
 	for _, deviceConfig := range config.Devices {
 		if !deviceConfig.Active {
 			continue
 		}
 
-		_, err := r.RegisterDevice(deviceConfig.DeviceID, deviceConfig.ModelID)
-		if log.Should(err) {
-			continue
-		}
 		stateChan := make(chan *pb.Parameter, 10)
 		stateChannels[deviceConfig.DeviceID] = stateChan
 
